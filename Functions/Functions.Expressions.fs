@@ -40,6 +40,12 @@ let rec diff f x =
     | Cos arg -> Mul(Mul(Val -1.0, Sin arg), diff arg x)
     | Exp arg -> Mul(Exp arg, diff arg x)
 
+let rec diffn n f x =
+    if n = 0u then
+        f
+    else
+        diffn (n - 1u) (diff f x) x
+
 
 let rec evalfFromDict expr (vars: IDictionary<string, float>) =
     match expr with
